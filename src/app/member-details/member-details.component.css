@@ -1,0 +1,18 @@
+#activeStatus {
+  margin-right: 10px;
+}
+/* override bootstrap form-group css with new class */
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.form-group.has-error input,
+.form-group.has-error label,
+.form-group.has-error select {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  display: block;
+}

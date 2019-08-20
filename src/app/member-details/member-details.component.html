@@ -1,0 +1,88 @@
+<div class="container-fluid col-md-6">
+  <h3 class="text-center lead">{{ memberId ? 'Edit' :  'Add' }} Member to Racing Team</h3>
+  <br />
+  <div *ngIf="alertType" class="alert alert-{{alertType}}" role="alert">
+    {{alertMessage}}
+  </div>
+  <!--Template Driven Form or Model Driven Form?-->
+  <form [formGroup]="memberForm" (ngSubmit)="onSubmit(memberForm)">
+    <div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group no-margin-bottom"
+            [ngClass]="{ 'has-error': f.firstName.errors && f.firstName.touched }">
+            <label for="firsttName">First Name</label>
+            <input type="text" class="form-control" id="firstName" formControlName="firstName" autofocus
+              placeholder="First Name" />
+            <div
+              *ngIf="(f.firstName.touched || f.firstName.dirty) && f.firstName.errors?.required || f.firstName.errors?.minlength || f.firstName.errors?.maxlength"
+              class="invalid-feedback">First Name must be a string with a minimun length of '2' and a maximum length of
+              '100'</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group no-margin-bottom" [ngClass]="{ 'has-error': f.lastName.errors && f.lastName.touched }">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Last Name" />
+            <div
+              *ngIf="(f.lastName.touched || f.lastName.dirty) && f.lastName.errors?.required || f.lastName.errors?.minlength || f.lastName.errors?.maxlength"
+              class="invalid-feedback">Last Name must be a string with a minimun length of '2' and a maximum length of
+              '100'</div>
+          </div>
+        </div>
+
+      </div>
+      <br />
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group no-margin-bottom" [ngClass]="{ 'has-error': f.jobTitle.errors && f.jobTitle.touched }">
+            <label for="jobTitle">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" formControlName="jobTitle" placeholder="Job Title" />
+            <div
+              *ngIf="(f.jobTitle.touched || f.jobTitle.dirty) && f.jobTitle.errors?.required || f.jobTitle.errors?.minlength || f.jobTitle.errors?.maxlength"
+              class="invalid-feedback">Job Title must be a string with a minimun length of '2' and a maximum length of
+              '100'</div>
+          </div>
+        </div>
+
+        <!--We may have to make a service call to get this list-->
+        <div class="col-md-6">
+          <div class="form-group no-margin-bottom" [ngClass]="{ 'has-error': f.team.errors && f.team.touched }">
+            <label for="team">Team</label>
+            <select id="team" class="form-control custom-select" formControlName="team">
+              <option value="">Select Team</option>
+              <option *ngFor="let team of teams" value="{{team.teamName}}">{{ team.teamName }}</option>
+            </select>
+            <div *ngIf="(f.team.touched || f.team.dirty) && f.team.errors?.required" class="invalid-feedback">Team
+              is required</div>
+          </div>
+        </div>
+
+      </div>
+      <br />
+      <div class="form-group col-md-6 no-margin-bottom"
+        [ngClass]="{ 'has-error': f.status.errors && f.status.touched }">
+        <div class="row">
+          <label id="activeStatus" class="md-check lead">
+            <input type="radio" value="Active" formControlName="status" name="status" /> Active
+          </label>
+          <label class="md-check lead">
+            <input type="radio" value="Inactive" formControlName="status" name="status" /> Inactive
+          </label>
+          <div *ngIf="(f.status.touched || f.status.dirty) && f.status.errors?.required" class="invalid-feedback">Status
+            is required</div>
+        </div>
+      </div>
+    </div>
+    <button (click)="cancel()" type="button" class="btn btn-default pull-right ml-1">
+      Cancel
+    </button>
+    <!--Disable if form is invalid-->
+    <button type="submit" [disabled]="submitted || memberForm.invalid" class="btn btn-primary pull-right">
+      Save Member
+    </button>
+  </form>
+</div>

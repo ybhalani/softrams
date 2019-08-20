@@ -1,0 +1,35 @@
+<div *ngIf="alertType" class="alert alert-{{alertType}}" role="alert">
+  {{alertMessage}}
+</div>
+<div class="container-fluid">
+  <button id="addMemberButton" class="btn btn-primary pull-right" (click)="goToAddMemberForm()">Add Member</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Job Title</th>
+        <th>Racing Team</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let member of members'>
+        <td>{{member?.id}}</td>
+        <td>{{member?.firstName}}</td>
+        <td>{{member?.lastName}}</td>
+        <td>{{member?.jobTitle}}</td>
+        <td>{{member?.team}}</td>
+        <td>{{member?.status}}</td>
+        <td>
+          <i (click)="editMemberByID(member?.id)" class="fa fa-pencil-square-o fa-2x cursor-pointer"
+            aria-hidden="true"></i>
+          <i (click)="deleteMemberById(member?.id)" class="fa fa-times fa-2x text-danger cursor-pointer"
+            aria-hidden="true"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
